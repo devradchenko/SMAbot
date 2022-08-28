@@ -8,7 +8,7 @@ bot = telebot.TeleBot(TOKEN)
 @bot.message_handler(commands=['start', 'go'])
 def start_handler(message):
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
-    about_us = types.KeyboardButton('О нас')
+    about_us = types.KeyboardButton('О вас')
     doctors = types.KeyboardButton('Наши врачи')
     price = types.KeyboardButton('Цены')
     answers = types.KeyboardButton('Задать вопрос')
