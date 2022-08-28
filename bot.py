@@ -1,8 +1,8 @@
 import telebot
 from telebot import types
-import settings
+import setting
 
-TOKEN = settings.API_KEY
+TOKEN = setting.API_KEY
 bot = telebot.TeleBot(TOKEN)
 
 @bot.message_handler(commands=['start', 'go'])
