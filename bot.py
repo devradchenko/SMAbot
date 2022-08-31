@@ -17,13 +17,47 @@ def start_handler(message):
     markup.add(about_us, doctors, price, answers, socials, map)
     bot.send_message(message.chat.id, f"Здравствуйте, {message.from_user.first_name}! \nЧем я Вам могу помочь?", reply_markup=markup)
 
+@bot.message_handler(commands=['text'])
+def doctors(message):  
+    markup = telebot.types.InlineKeyboardMarkup()
+    markup.add(telebot.types.InlineKeyboardButton(text='Травматолог', callback_data=1))
+    markup.add(telebot.types.InlineKeyboardButton(text='Гинеколог', callback_data=2))
+    markup.add(telebot.types.InlineKeyboardButton(text='Лазерный хирург', callback_data=3))
+    markup.add(telebot.types.InlineKeyboardButton(text='Хирург', callback_data=4))
+    markup.add(telebot.types.InlineKeyboardButton(text='Гастроентеролог', callback_data=5))
+    bot.send_message(message.chat.id, text="Какой врач Вас интересует?", reply_markup=markup)
+
+
+
+@bot.callback_query_handler(func=lambda call: True)
+def query_handler(call):
+
+    bot.answer_callback_query(callback_query_id=call.id, text='Давайте знакомиться!')
+    answer = ''
+    img = ''
+    if call.data == '1':
+        answer = 'Текст про нашего травматолога!'
+        img = open('travma.png', 'rb')
+    elif call.data == '2':
+        answer = 'текст про гинеколога!'
+        img = open('ginekolog.png', 'rb')
+    elif call.data == '3':
+        answer = 'текст про лазерного хирурга!'
+        img = open('laser.png', 'rb')
+    elif call.data == '4':
+        answer = 'текст про хирурга!'
+        img = open('hirurg.png', 'rb')
+    elif call.data == '5':
+        answer = 'текст про гастроентеролога!'
+        img = open('gastro.png', 'rb')
+
+    bot.send_message(call.message.chat.id, answer)
+    bot.send_photo(call.message.chat.id, img)
+
 @bot.message_handler(content_types=["text"])
 def handle_text(message):
     if message.text.strip() == 'О нас':
        bot.send_message(message.chat.id, "Мы лучшие")
-    elif message.text.strip() == 'Наши врачи':
-        img = open('ymap.png', 'rb')
-        bot.send_photo(message.chat.id, img)
 
     #elif message.text.strip() == 'Цены':
 
