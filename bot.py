@@ -8,11 +8,11 @@ bot = telebot.TeleBot(TOKEN)
 @bot.message_handler(commands=['start', 'go'])
 def start_handler(message):
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
-    about_us = types.KeyboardButton('О вас')
+    about_us = types.KeyboardButton('О нас')
     doctors = types.KeyboardButton('Наши врачи')
     price = types.KeyboardButton('Цены')
     answers = types.KeyboardButton('Задать вопрос')
-    socials = types.KeyboardButton('Социальные сети')
+    contacts = types.KeyboardButton('Контакты')
     map = types.KeyboardButton('Как нас найти')
     markup.add(about_us, doctors, price, answers, socials, map)
     bot.send_message(message.chat.id, f"Здравствуйте, {message.from_user.first_name}! \nЧем я Вам могу помочь?", reply_markup=markup)
@@ -64,7 +64,13 @@ def handle_text(message):
 
     #elif message.text.strip() == 'Задать вопрос':
 
-    #elif message.text.strip() == 'Социальные сети':
+    elif message.text.strip() == 'Контакты':
+        markup = types.InlineKeyboardMarkup()
+        vk = types.InlineKeyboardButton(text='Вконтакте', url='https://vk.com/sevmedalians')
+        inst = types.InlineKeyboardButton(text='инстаграм', url='https://instagram.com/sevmedalians?igshid=YmMyMTA2M2Y=')
+        markup.add(vk, inst)
+        bot.send_message(message.chat.id, "Наши контакты:", reply_markup=markup)
+
 
     elif message.text.strip() == 'Как нас найти':
         markup = types.InlineKeyboardMarkup()
