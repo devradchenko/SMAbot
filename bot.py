@@ -17,7 +17,7 @@ def start_handler(message):
     markup.add(about_us, doctors, price, answers, socials, map)
     bot.send_message(message.chat.id, f"Здравствуйте, {message.from_user.first_name}! \nЧем я Вам могу помочь?", reply_markup=markup)
 
-@bot.message_handler(commands=['text'])
+@bot.message_handler(commands=['doctora'])
 def doctors(message):  
     markup = telebot.types.InlineKeyboardMarkup()
     markup.add(telebot.types.InlineKeyboardButton(text='Травматолог', callback_data=1))
@@ -26,8 +26,6 @@ def doctors(message):
     markup.add(telebot.types.InlineKeyboardButton(text='Хирург', callback_data=4))
     markup.add(telebot.types.InlineKeyboardButton(text='Гастроентеролог', callback_data=5))
     bot.send_message(message.chat.id, text="Какой врач Вас интересует?", reply_markup=markup)
-
-
 
 @bot.callback_query_handler(func=lambda call: True)
 def query_handler(call):
@@ -51,13 +49,16 @@ def query_handler(call):
         answer = 'текст про гастроентеролога!'
         img = open('gastro.png', 'rb')
 
-    bot.send_message(call.message.chat.id, answer)
     bot.send_photo(call.message.chat.id, img)
+    bot.send_message(call.message.chat.id, answer)
 
 @bot.message_handler(content_types=["text"])
 def handle_text(message):
     if message.text.strip() == 'О нас':
        bot.send_message(message.chat.id, "Мы лучшие")
+    elif message.text.strip() == 'Наши врачи':
+        bot.send_message(message.chat.id, "/doctora")
+       
 
     #elif message.text.strip() == 'Цены':
 
