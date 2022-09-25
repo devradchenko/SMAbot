@@ -70,7 +70,7 @@ def handle_text(message):
         vk = types.InlineKeyboardButton(text='Вконтакте', url='https://vk.com/sevmedalians')
         inst = types.InlineKeyboardButton(text='Инстаграм', url='https://instagram.com/sevmedalians?igshid=YmMyMTA2M2Y=')
         markup.add(vk, inst)
-        bot.send_message(message.chat.id, "Телефон для записи: \n+7(978)-840-08-85 \n +7(8692)55-11-88", reply_markup=markup)
+        bot.send_message(message.chat.id, "Телефон для записи: \n+7(978)-840-08-85 \n+7(8692)55-11-88", reply_markup=markup)
 
 
     elif message.text.strip() == 'Как нас найти':
