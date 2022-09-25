@@ -14,7 +14,7 @@ def start_handler(message):
     answers = types.KeyboardButton('Задать вопрос')
     contacts = types.KeyboardButton('Контакты')
     map = types.KeyboardButton('Как нас найти')
-    markup.add(about_us, doctors, price, answers, socials, map)
+    markup.add(about_us, doctors, price, answers, contacts, map)
     bot.send_message(message.chat.id, f"Здравствуйте, {message.from_user.first_name}! \nЧем я Вам могу помочь?", reply_markup=markup)
 
 @bot.message_handler(commands=['doctora'])
@@ -60,15 +60,17 @@ def handle_text(message):
         bot.send_message(message.chat.id, "/doctora")
        
 
-    #elif message.text.strip() == 'Цены':
+    elif message.text.strip() == 'Цены':
+        bot.send_message(message.chat.id, "Травматолог 1200, пвторная консултация 1200 \nТравматолог 1200, пвторная консултация 1200")
 
     #elif message.text.strip() == 'Задать вопрос':
 
     elif message.text.strip() == 'Контакты':
         markup = types.InlineKeyboardMarkup()
         vk = types.InlineKeyboardButton(text='Вконтакте', url='https://vk.com/sevmedalians')
-        inst = types.InlineKeyboardButton(text='инстаграм', url='https://instagram.com/sevmedalians?igshid=YmMyMTA2M2Y=')
+        inst = types.InlineKeyboardButton(text='Инстаграм', url='https://instagram.com/sevmedalians?igshid=YmMyMTA2M2Y=')
         markup.add(vk, inst)
+        bot.send_message(message.chat.id, "Домшаний телефон: +79785077379", reply_markup=markup)
         bot.send_message(message.chat.id, "Наши контакты:", reply_markup=markup)
 
 
