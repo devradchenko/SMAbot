@@ -17,7 +17,7 @@ def start_handler(message):
     markup.add(about_us, doctors, price, answers, contacts, map)
     bot.send_message(message.chat.id, f"Здравствуйте, {message.from_user.first_name}! \nЧем я Вам могу помочь?", reply_markup=markup)
 
-@bot.message_handler(commands=['doctora'])
+@bot.message_handler(commands=['doctors'])
 def doctors(message):  
     markup = telebot.types.InlineKeyboardMarkup()
     markup.add(telebot.types.InlineKeyboardButton(text='Травматолог', callback_data=1))
@@ -51,13 +51,15 @@ def query_handler(call):
 
     bot.send_photo(call.message.chat.id, img)
     bot.send_message(call.message.chat.id, answer)
+    
 
 @bot.message_handler(content_types=["text"])
 def handle_text(message):
     if message.text.strip() == 'О нас':
-       bot.send_message(message.chat.id, "Мы лучшие")
+       mess = "<b>Севастопольский медицинский альянс</b>-многопрофильный лечебно-диагностический центр в Севастополе с хирургическим уклоном, функционирующий более 11 лет.Наши специалисты обладают большим опытом и продолжительным стажем от 13 до 37 лет работы по специальности. Клиника оснащена высокотехнологичным оборудованием, используются малотравматичные методики лечения.\n \n<b>Прием ведут:</b> \n \n -Мишарев Иван Викторович(флеболог/хирург; стаж 21 год) \n \n -Гансон Алексей Павлович(Лазерный хирург/; стаж 17 лет) \n \n -Мочалова Светлана Вадимовна(гинеколог; стаж 25 лет) \n \n -Михеенко Геннадий Валентинович(гастроэнтеролог; стаж 37 лет) \n \n -Онищук Николай Александрович(проктолог; стаж 21 год) \n \n -Синицына Екатерина Николаевна(дерматовенеролог; стаж 14 лет) \n \n -Кочуров Сергей Юрьевич(травматолог-ортопед; стаж 21 год) \n \n-Мишарева Анна Олеговна (гастроэнтеролог-диетолог; стаж 13 лет) \n \nМы не предлагаем дополнительных скрытых расходов, а назначаем только необходимое лечение "
+       bot.send_message(message.chat.id, mess, parse_mode='html')
     elif message.text.strip() == 'Наши врачи':
-        bot.send_message(message.chat.id, "/doctora")
+        bot.send_message(message.chat.id, "/doctors")
        
 
     elif message.text.strip() == 'Цены':
