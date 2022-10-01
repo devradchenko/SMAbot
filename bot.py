@@ -1,3 +1,5 @@
+from cgitb import text
+from pydoc import doc
 import telebot
 from telebot import types
 import setting
@@ -16,16 +18,6 @@ def start_handler(message):
     map = types.KeyboardButton('Как нас найти')
     markup.add(about_us, doctors, price, answers, contacts, map)
     bot.send_message(message.chat.id, f"Здравствуйте, {message.from_user.first_name}! \nЧем я Вам могу помочь?", reply_markup=markup)
-
-@bot.message_handler(commands=['doctora'])
-def doctors(message):  
-    markup = telebot.types.InlineKeyboardMarkup()
-    markup.add(telebot.types.InlineKeyboardButton(text='Травматолог', callback_data=1))
-    markup.add(telebot.types.InlineKeyboardButton(text='Гинеколог', callback_data=2))
-    markup.add(telebot.types.InlineKeyboardButton(text='Лазерный хирург', callback_data=3))
-    markup.add(telebot.types.InlineKeyboardButton(text='Хирург', callback_data=4))
-    markup.add(telebot.types.InlineKeyboardButton(text='Гастроентеролог', callback_data=5))
-    bot.send_message(message.chat.id, text="Какой врач Вас интересует?", reply_markup=markup)
 
 @bot.callback_query_handler(func=lambda call: True)
 def query_handler(call):
@@ -57,7 +49,15 @@ def handle_text(message):
     if message.text.strip() == 'О нас':
        bot.send_message(message.chat.id, "Мы лучшие")
     elif message.text.strip() == 'Наши врачи':
-        bot.send_message(message.chat.id, "/doctora")
+        def doctors(message):  
+            markup = telebot.types.InlineKeyboardMarkup()
+            markup.add(telebot.types.InlineKeyboardButton(text='Травматолог', callback_data=1))
+            markup.add(telebot.types.InlineKeyboardButton(text='Гинеколог', callback_data=2))
+            markup.add(telebot.types.InlineKeyboardButton(text='Лазерный хирург', callback_data=3))
+            markup.add(telebot.types.InlineKeyboardButton(text='Хирург', callback_data=4))
+            markup.add(telebot.types.InlineKeyboardButton(text='Гастроентеролог', callback_data=5))
+            bot.send_message(message.chat.id, text="Какой врач Вас интересует?", reply_markup=markup)
+        doctors(message)
        
 
     elif message.text.strip() == 'Цены':
